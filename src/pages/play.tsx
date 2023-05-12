@@ -17,14 +17,14 @@ function KeyboardEventHandler() {
   const setKeyboardState = useSetRecoilState(keyboardState);
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: any) => {
       setKeyboardState((prev) => ({
         ...prev,
         [event.code]: true,
       }));
     };
 
-    const handleKeyUp = (event) => {
+    const handleKeyUp = (event: any) => {
       setKeyboardState((prev) => ({
         ...prev,
         [event.code]: false,
@@ -138,7 +138,7 @@ type Game = {
   spawner: Spawner
   player: Player
   enemies: Enemy[]
-  gameOver: bool
+  gameOver: boolean
 }
 
 const RetryButton: FC<any> = (props) => {
@@ -175,7 +175,7 @@ type GameStage = {
 }
 
 const GameStageView: FC<GameStage> = ({ handleClick, handleRetry, width, height, game }) => {
-  return <Stage width={width} height={height} className="flex justify-center" onKeyPress={(e) => console.log(e)} onClick={() => handleClick()}>
+  return <Stage width={width} height={height} className="flex justify-center" onKeyPress={(e: any) => console.log(e)} onClick={() => handleClick()}>
     <Layer>
       <Rect stroke='black' strokeWidth={4} x={2} y={2} width={width-4} height={height-4} />
     </Layer>
@@ -185,7 +185,7 @@ const GameStageView: FC<GameStage> = ({ handleClick, handleRetry, width, height,
 
 // ループで実行したい処理 を callback関数に渡す
 const useAnimationFrame = (callback = () => {}) => {
-  const reqIdRef = useRef();
+  const reqIdRef = useRef(0);
   // useCallback で callback 関数が更新された時のみ関数を再生成
   const loop = useCallback(() => {
     reqIdRef.current = requestAnimationFrame(loop);
@@ -216,11 +216,11 @@ export default function Home() {
       jumping: true,
       fated: false,
     },
-    enemies: [],
+    enemies: Array<Enemy>(),
     gameOver: false,
   })
 
-  const currentKeyboardState = useRecoilValue(keyboardState);
+  const currentKeyboardState: any = useRecoilValue(keyboardState);
 
   useAnimationFrame(() => {
     const dt = 1 / 60.0;
