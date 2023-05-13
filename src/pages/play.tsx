@@ -6,7 +6,7 @@ import { FC, useCallback, useEffect, useRef, useState } from "react";
 import useImage from 'use-image';
 import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
 
-const SHOW_BOUNDING_BOX = true
+const SHOW_BOUNDING_BOX = false
 
 const keyboardState = atom({
   key: 'keyboardState',
