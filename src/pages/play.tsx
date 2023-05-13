@@ -175,7 +175,7 @@ type GameStage = {
 }
 
 const GameStageView: FC<GameStage> = ({ handleClick, handleRetry, width, height, game }) => {
-  return <Stage width={width} height={height} className="flex justify-center" onKeyPress={(e: any) => console.log(e)} onClick={() => handleClick()}>
+  return <Stage width={width} height={height} className="flex justify-center" onKeyPress={(e: any) => console.log(e)} onClick={() => handleClick()} onTouchStart={() => handleClick()}>
     <Layer>
       <Rect stroke='black' strokeWidth={4} x={2} y={2} width={width-4} height={height-4} />
     </Layer>
