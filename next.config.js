@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   distDir: 'build',
+  basePath: '/dyno-jump',
   output: 'export',
   images: {
     unoptimized: true,
