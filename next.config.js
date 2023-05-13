@@ -4,7 +4,6 @@ const nextConfig = {
   distDir: 'build',
   assetPrefix: '/dyno-jump',
   basePath: '/dyno-jump',
-  output: 'export',
   images: {
     unoptimized: true,
   }
