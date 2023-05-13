@@ -1,5 +1,6 @@
 {
   "name": "dyno-jump",
+  "homepage": "https://oginom.github.io/dyno-jump/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
