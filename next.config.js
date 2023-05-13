@@ -6,6 +6,7 @@ const nextConfig = {
   output: 'export',
   images: {
     unoptimized: true,
+    path: `/dyno-jump/_next/image`,
   }
 }
 
