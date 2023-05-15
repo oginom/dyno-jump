@@ -171,11 +171,13 @@ type GameStage = {
   handleRetry: any
   width: number
   height: number
+  windowSize: any
   game: Game
 }
 
-const GameStageView: FC<GameStage> = ({ handleClick, handleRetry, width, height, game }) => {
-  return <Stage width={width} height={height} className="flex justify-center" onKeyPress={(e: any) => console.log(e)} onClick={() => handleClick()} onTouchStart={() => handleClick()}>
+const GameStageView: FC<GameStage> = ({ handleClick, handleRetry, windowSize, width, height, game }) => {
+  const scale = Math.min((windowSize.width - 10) / width, (windowSize.height - 10) / height);
+  return <Stage width={width * scale} height={height * scale} scaleX={scale} scaleY={scale} className="flex justify-center" onKeyPress={(e: any) => console.log(e)} onClick={() => handleClick()} onTouchStart={() => handleClick()}>
     <Layer>
       <Rect stroke='black' strokeWidth={4} x={2} y={2} width={width-4} height={height-4} />
     </Layer>
@@ -202,8 +204,6 @@ const useAnimationFrame = (callback = () => {}) => {
 const GND = 623
 
 export default function Home() {
-
-  const stageRef = useRef()
 
   const [game, setGame] = useState({
     t: 0,
@@ -285,6 +285,25 @@ export default function Home() {
     }
   });
 
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+    height: 0,
+  });
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleResize = () => {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      };
+
+      window.addEventListener("resize", handleResize);
+      handleResize();
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  })
+
   const jump = () => {
     console.log("jump")
     if (!game.player.jumping) {
@@ -307,9 +326,9 @@ export default function Home() {
   const H = 600;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <GameStageView handleClick={() => handleClick()} handleRetry={handleRetry} width={W} height={H} game={game} />
+    <main className="flex min-h-screen flex-col items-center justify-between p-1">
+      <div className="z-10 w-full h-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+        <GameStageView handleClick={() => handleClick()} handleRetry={handleRetry} windowSize={windowSize} width={W} height={H} game={game} />
       </div>
       <div>
       <div>Pressed keys:</div>
