@@ -176,12 +176,12 @@ type GameStage = {
 }
 
 const GameStageView: FC<GameStage> = ({ handleClick, handleRetry, windowSize, width, height, game }) => {
-  const scale = Math.min((windowSize.width - 10) / width, (windowSize.height - 10) / height);
+  const scale = Math.min((windowSize.width) / width, (windowSize.height) / height);
   return <Stage width={width * scale} height={height * scale} scaleX={scale} scaleY={scale} className="flex justify-center" onKeyPress={(e: any) => console.log(e)} onClick={() => handleClick()} onTouchStart={() => handleClick()}>
+    <GameView {...game} handleRetry={handleRetry} />
     <Layer>
       <Rect stroke='black' strokeWidth={4} x={2} y={2} width={width-4} height={height-4} />
     </Layer>
-    <GameView {...game} handleRetry={handleRetry} />
   </Stage>
 }
 
@@ -326,21 +326,11 @@ export default function Home() {
   const H = 600;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-1">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="z-10 w-full h-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <GameStageView handleClick={() => handleClick()} handleRetry={handleRetry} windowSize={windowSize} width={W} height={H} game={game} />
       </div>
-      <div>
-      <div>Pressed keys:</div>
-      <ul>
-        {Object.keys(currentKeyboardState).map((key) => (
-          <li key={key}>
-            {key}: {currentKeyboardState[key].toString()}
-          </li>
-        ))}
-      </ul>
-    </div>
-    <KeyboardEventHandler />
+      <KeyboardEventHandler />
     </main>
   )
 }
